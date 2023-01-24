@@ -6,13 +6,28 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        echo 'Category Controller method: index';
+        $page = $request->get('page');
+        $name = $request->get('name');
+
+        //var_dump($request->is('categories'));
+
+        $uri = $request->path();
+        $url = $request->url();
+        $fullUrl = $request->fullUrl();
+        $host = $request->host();
+
+        echo $host;
     }
 
     public function show($id)
     {
-        echo 'Category Controller method: show';
+        echo 'Category Controller method: show ID:' . $id;
+    }
+
+    public function store()
+    {
+        echo 'Store method';
     }
 }

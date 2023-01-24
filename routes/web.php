@@ -63,13 +63,18 @@ Route::get('books/{id}', [BookController::class, 'show'])->whereNumber('id');
 Route::get('books/create', [BookController::class, 'create']);
 Route::post('books/store', [BookController::class, 'store']);
 
-Route::resource('books', BookController::class);
+Route::get('categories', [CategoryController::class, 'index']);
+Route::get('categories/save', [CategoryController::class, 'store']);
+Route::get('categories/{id}', [CategoryController::class, 'show']);
+
+
+/*Route::resource('books', BookController::class);
 
 Route::resources([
     'books' => BookController::class,
     'users' => UserController::class,
     'categories' => CategoryController::class
-]);
+]);*/
 
 
 
