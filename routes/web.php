@@ -64,7 +64,9 @@ Route::get('books/create', [BookController::class, 'create']);
 Route::post('books/store', [BookController::class, 'store']);
 
 Route::get('categories', [CategoryController::class, 'index']);
-Route::get('categories/save', [CategoryController::class, 'store']);
+Route::any('categories/save', [CategoryController::class, 'store']);
+Route::get('categories/json', [CategoryController::class, 'json']);
+//Route::post('categories/save', [CategoryController::class, 'store']);
 Route::get('categories/{id}', [CategoryController::class, 'show']);
 
 

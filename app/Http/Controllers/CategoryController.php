@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
@@ -21,13 +24,37 @@ class CategoryController extends Controller
         echo $host;
     }
 
-    public function show($id)
+    public function show($id): Response
     {
-        echo 'Category Controller method: show ID:' . $id;
+        //return view('categories/show');
+
+        if ($id == 1) {
+            return response()->view('categories/show');
+        }
+
+        return response()->view('categories/error', [], 404);
     }
 
-    public function store()
+    public function store(Request $request): View
     {
-        echo 'Store method';
+        if ($request->isMethod('post')) {
+            $name = $request->post('full_name');
+
+            return view('categories/store', [
+                'name' => $name
+            ]);
+        }
+
+        return view('categories/store');
+    }
+
+    public function json(): JsonResponse
+    {
+        return response()->json(
+            [
+                'product_name' => 'TV',
+                'price' => 333
+            ]
+        );
     }
 }
