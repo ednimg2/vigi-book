@@ -15,3 +15,10 @@
     @endforeach
 </div>
 
+<div>
+    @foreach($books as $book)
+        Knyga: {{ $book->name }}<br>
+        puslapiai: {{ $book->page_count }}<br>
+    @endforeach
+</div>
+
