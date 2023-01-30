@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
@@ -9,19 +10,14 @@ use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
-    public function index(Request $request)
+    public function index(): View
     {
-        $page = $request->get('page');
-        $name = $request->get('name');
+        // select * from categories
+        $categories = Category::all();
 
-        //var_dump($request->is('categories'));
-
-        $uri = $request->path();
-        $url = $request->url();
-        $fullUrl = $request->fullUrl();
-        $host = $request->host();
-
-        echo $host;
+        return view('categories/index', [
+            'categories' => $categories
+        ]);
     }
 
     public function show($id): Response
