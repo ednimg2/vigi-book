@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 class BookController extends Controller
 {
@@ -12,28 +14,13 @@ class BookController extends Controller
     {
         $books = Book::all();
 
-        foreach ($books as $book) {
-            var_dump($book->id);
-            var_dump($book->name);
-        }
-        //$page = $_GET['page'];
-        $page = $request->get('page');
-        $name = 'Mindaugas';
-        $array = [
-            [
-                'product_name' => 'TV',
-                'price' => 300,
-            ],
-            [
-                'product_name' => 'Phone',
-                'price' => 500,
-            ],
-        ];
+        /*$books = Book::cursor()->filter(function ($book) {
+            return $book->id > 1010;
+        });*/
+
+        //$books = Book::lazy();
 
         return view('books/index', [
-            'page' => $page,
-            'name' => $name,
-            'products' => $array,
             'books' => $books
         ]);
     }

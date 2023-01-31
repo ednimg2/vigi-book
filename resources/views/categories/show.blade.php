@@ -1,1 +1,2 @@
-<h1>Response BLALAL</h1>
+Category name: {{ $category->name }}<br>
+Enabled: {{ $category->enabled }}

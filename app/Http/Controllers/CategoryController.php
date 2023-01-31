@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Response;
@@ -20,37 +20,45 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function show($id): Response
+    public function show(int $id): View
     {
-        //return view('categories/show');
+        $category = Category::find($id);
 
-        if ($id == 1) {
-            return response()->view('categories/show');
+        if ($category === null) {
+            abort(404);
         }
 
-        return response()->view('categories/error', [], 404);
+        return view('categories/show', [
+            'category' => $category
+        ]);
     }
 
-    public function store(Request $request): View
+    public function create(Request $request): View|RedirectResponse
     {
         if ($request->isMethod('post')) {
-            $name = $request->post('full_name');
+            /*$category = new Category();
+            $category->name = $request->post('category_name');
+            if ($request->post('enabled')) {
+                $category->enabled = $request->post('enabled');
+            }
+            $category->save();*/
 
-            return view('categories/store', [
-                'name' => $name
-            ]);
+            Category::create($request->all());
+
+            return redirect('categories')
+                ->with('success', 'Category created successfully!');
         }
 
-        return view('categories/store');
+        return view('categories/create');
     }
 
-    public function json(): JsonResponse
+    public function edit()
     {
-        return response()->json(
-            [
-                'product_name' => 'TV',
-                'price' => 333
-            ]
-        );
+
+    }
+
+    public function delete()
+    {
+
     }
 }

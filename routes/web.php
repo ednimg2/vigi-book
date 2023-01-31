@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -64,10 +65,12 @@ Route::get('books/create', [BookController::class, 'create']);
 Route::post('books/store', [BookController::class, 'store']);
 
 Route::get('categories', [CategoryController::class, 'index']);
-Route::any('categories/save', [CategoryController::class, 'store']);
-Route::get('categories/json', [CategoryController::class, 'json']);
-//Route::post('categories/save', [CategoryController::class, 'store']);
+Route::any('categories/create', [CategoryController::class, 'create']);
+Route::any('categories/edit/{id}', [CategoryController::class, 'edit']);
+Route::any('categories/delete/{id}', [CategoryController::class, 'delete']);
 Route::get('categories/{id}', [CategoryController::class, 'show']);
+
+Route::get('products/create', [ProductController::class, 'create']);
 
 
 /*Route::resource('books', BookController::class);

@@ -24,6 +24,6 @@ class BookSeeder extends Seeder
             ]);
         }*/
 
-        Book::factory(10)->create();
+        Book::factory(1000)->create();
     }
 }
