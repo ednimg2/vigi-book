@@ -66,8 +66,8 @@ Route::post('books/store', [BookController::class, 'store']);
 
 Route::get('categories', [CategoryController::class, 'index']);
 Route::any('categories/create', [CategoryController::class, 'create']);
-Route::any('categories/edit/{id}', [CategoryController::class, 'edit']);
-Route::any('categories/delete/{id}', [CategoryController::class, 'delete']);
+Route::any('categories/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+Route::delete('categories/delete/{id}', [CategoryController::class, 'delete'])->name('category.delete');
 Route::get('categories/{id}', [CategoryController::class, 'show']);
 
 Route::get('products/create', [ProductController::class, 'create']);
