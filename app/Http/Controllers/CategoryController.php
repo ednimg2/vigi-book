@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
@@ -23,7 +22,8 @@ class CategoryController extends Controller
     public function show(int $id): View
     {
         $category = Category::find($id);
-
+        //Book::where('category_id', $id)->get();
+        //$category->books;
         if ($category === null) {
             abort(404);
         }
@@ -33,26 +33,24 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function create(Request $request): View|RedirectResponse
+    //atsakinga uz saugojima create formos
+    public function store(StoreCategoryRequest $request) {
+        //validacija
+        $request->validated();
+
+        Category::create($request->all());
+
+        return redirect('categories')
+            ->with('success', 'Category created successfully!');
+    }
+
+    //atsakinga uz atvaizdavima create formos
+    public function create(): View|RedirectResponse
     {
-        if ($request->isMethod('post')) {
-            /*$category = new Category();
-            $category->name = $request->post('category_name');
-            if ($request->post('enabled')) {
-                $category->enabled = $request->post('enabled');
-            }
-            $category->save();*/
-
-            Category::create($request->all());
-
-            return redirect('categories')
-                ->with('success', 'Category created successfully!');
-        }
-
         return view('categories/create');
     }
 
-    public function edit(int $id, Request $request)
+    public function edit(int $id, StoreCategoryRequest $request)
     {
         /*
          * CRUD
