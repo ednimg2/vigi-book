@@ -1,3 +1,8 @@
+@extends('components.layout')
+
+@section('title', 'Create category')
+
+@section('content')
 <h3>Create new category</h3>
 
 <form action="{{ url('categories/create') }}" method="post">
@@ -22,3 +27,4 @@
     Enabled? <input type="checkbox" name="enabled" value="1"><br>
     <button type="submit">Save</button>
 </form>
+@endsection

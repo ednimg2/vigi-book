@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
+use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
 
@@ -50,7 +51,7 @@ class CategoryController extends Controller
         return view('categories/create');
     }
 
-    public function edit(int $id, StoreCategoryRequest $request)
+    public function edit(Request $request, int $id): View|RedirectResponse
     {
         /*
          * CRUD

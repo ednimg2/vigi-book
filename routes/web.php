@@ -21,36 +21,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-/*Route::redirect('/', 'hello', 301);
-
-//user/2
-Route::get('user/{id}', function ($id) {
-    return 'User: '. $id;
-});
-
-//user/2/comments/5
-Route::get('user/{id}/comments/{commentId}', function ($id, $commentId) {
-    return 'User: '. $id . ' - '. $commentId;
-});
-
-// product/Mindaugas
-// product
-Route::get('product/{name?}', function ($name = 'Apple') {
-    return $name;
-});
-
-// book/2
-// LT23423423
-Route::get('book/{id}', function ($id) {
-    return $id;
-})->where('id', '[A-Za-z]+');
-//->where('id', '[0-9]+')
-//->where('id', '[LT0-9]+')
-
-Route::get('car/{id}/{name}', function ($id) {
-    return $id;
-})->whereNumber('id')->whereAlpha('name');*/
-
 // GET index            books/index
 // GET show/{id}        books/show/1
 // GET create           books/create
@@ -68,22 +38,13 @@ Route::get('authors/create', [AuthorController::class, 'create']);
 Route::post('authors/create', [AuthorController::class, 'store']);
 
 Route::get('categories', [CategoryController::class, 'index']);
+Route::any('categories/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
 Route::get('categories/create', [CategoryController::class, 'create']);
 Route::post('categories/create', [CategoryController::class, 'store']);
-Route::any('categories/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
 Route::delete('categories/delete/{id}', [CategoryController::class, 'delete'])->name('category.delete');
 Route::get('categories/{id}', [CategoryController::class, 'show']);
 
 Route::get('products/create', [ProductController::class, 'create']);
-
-
-/*Route::resource('books', BookController::class);
-
-Route::resources([
-    'books' => BookController::class,
-    'users' => UserController::class,
-    'categories' => CategoryController::class
-]);*/
 
 
 
