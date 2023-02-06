@@ -39,6 +39,7 @@ Route::get('authors/create', [AuthorController::class, 'create']);
 Route::post('authors/create', [AuthorController::class, 'store']);
 Route::post('authors/edit/{id}', [AuthorController::class, 'edit'])->name('authors.edit');
 Route::delete('authors/delete/{id}', [AuthorController::class, 'delete'])->name('authors.delete');
+Route::get('authors/{author}', [AuthorController::class, 'show']);
 
 Route::get('categories', [CategoryController::class, 'index']);
 Route::any('categories/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');

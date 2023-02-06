@@ -17,6 +17,11 @@ class AuthorController extends Controller
         ]);
     }
 
+    public function show(Author $author): View
+    {
+        return view('authors/show', compact('author'));
+    }
+
     //atsakinga uz saugojima create formos
     public function store(Request $request) {
 
