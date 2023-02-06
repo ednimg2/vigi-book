@@ -5,7 +5,7 @@
 @section('content')
 <h3>Create new category</h3>
 
-<form action="{{ url('categories/create') }}" method="post">
+<form action="{{ url('categories/create') }}" method="post" class="row g-3">
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -18,13 +18,20 @@
     @endif
 
     @csrf
-    <input type="text" name="name" placeholder="Category name"><br>
+    <div class="col-12">
+        <label class="form-label">Category name:</label>
+        <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" placeholder="Category name">
+        @error('name')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
 
-    @error('name')
-        <div style="color:red">{{ $message }}</div><br>
-    @enderror
-
-    Enabled? <input type="checkbox" name="enabled" value="1"><br>
-    <button type="submit">Save</button>
+    <div class="col-12">
+        <input type="checkbox" name="enabled" class="form-check-input" value="1" @if (old('enabled')) checked @endif>
+        <label class="form-check-label">Enabled?</label>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-info">Save</button>
+    </div>
 </form>
 @endsection

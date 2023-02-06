@@ -14,6 +14,9 @@
                     <li class="nav-item">
                         <a href="{{ url('categories') }}" class="nav-link" aria-current="page" href="#">Categories</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ url('authors') }}" class="nav-link" aria-current="page" href="#">Authors</a>
+                    </li>
                 </ul>
             </div>
         </div>

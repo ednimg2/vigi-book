@@ -80,7 +80,7 @@ class CategoryController extends Controller
         if ($request->isMethod('post')) {
 
             $request->validate(
-                ['name' => 'required|max:12']
+                ['name' => 'required|min:3|max:12']
             );
 
             //2.2. užsetinam category propercius
