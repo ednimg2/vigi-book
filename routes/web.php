@@ -5,7 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AuthorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -64,10 +64,14 @@ Route::get('books/{id}', [BookController::class, 'show'])->whereNumber('id');
 Route::get('books/create', [BookController::class, 'create']);
 Route::post('books/store', [BookController::class, 'store']);
 
+Route::get('authors/create', [AuthorController::class, 'create']);
+Route::post('authors/create', [AuthorController::class, 'store']);
+
 Route::get('categories', [CategoryController::class, 'index']);
-Route::any('categories/create', [CategoryController::class, 'create']);
-Route::any('categories/edit/{id}', [CategoryController::class, 'edit']);
-Route::any('categories/delete/{id}', [CategoryController::class, 'delete']);
+Route::get('categories/create', [CategoryController::class, 'create']);
+Route::post('categories/create', [CategoryController::class, 'store']);
+Route::any('categories/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+Route::delete('categories/delete/{id}', [CategoryController::class, 'delete'])->name('category.delete');
 Route::get('categories/{id}', [CategoryController::class, 'show']);
 
 Route::get('products/create', [ProductController::class, 'create']);
