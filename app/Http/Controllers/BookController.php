@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\Book;
+use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
@@ -41,7 +43,13 @@ class BookController extends Controller
 
     public function create(): View
     {
-        return view('books/create');
+        $authors = Author::all();
+        $categories = Category::all();
+
+        return view('books/create', [
+            'authors' => $authors,
+            'categories' => $categories
+        ]);
     }
 
     public function store(Request $request): RedirectResponse
@@ -49,6 +57,7 @@ class BookController extends Controller
         $request->validate(
             [
                 'name' => 'required|max:50',
+                'author_id' => 'required'
             ]
         );
 

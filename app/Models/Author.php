@@ -15,4 +15,9 @@ class Author extends Model
     ];
 
     use HasFactory;
+
+    public function getFullNameAttribute(): string
+    {
+        return sprintf('%s %s (%s)', $this->name, $this->surname, $this->country);
+    }
 }

@@ -12,8 +12,15 @@ class Book extends Model
 
     protected $fillable = [
         'name',
-        'page_count'
+        'page_count',
+        'author_id',
+        'category_id'
     ];
+
+    public function author(): BelongsTo
+    {
+        return $this->belongsTo(Author::class);
+    }
 
     //Sąryšis su categorija, per category_i
     public function category(): BelongsTo

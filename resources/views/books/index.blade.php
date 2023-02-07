@@ -17,6 +17,8 @@
         <tr>
             <th scope="col" width="100">ID</th>
             <th scope="col">Name</th>
+            <th scope="col">Author</th>
+            <th scope="col">Category</th>
             <th scope="col">Page count</th>
             <th scope="col" width="100">Edit</th>
             <th scope="col" width="100">Delete</th>
@@ -26,6 +28,16 @@
                 <th scope="row">{{ $book->id }}</th>
                 <td>
                     <a href="{{ url('books', ['id' => $book->id]) }}">{{ $book->name }}</a>
+                </td>
+                <td>
+                    @if ($book->author)
+                        {{ $book->author->full_name }}
+                    @endif
+                </td>
+                <td>
+                    @if($book->category)
+                        {{ $book->category->name }}
+                    @endif
                 </td>
                 <td>{{ $book->page_count }}</td>
                 <td>
