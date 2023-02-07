@@ -17,6 +17,8 @@ class Book extends Model
         'category_id'
     ];
 
+    protected $with = ['category', 'author'];
+
     public function author(): BelongsTo
     {
         return $this->belongsTo(Author::class);
