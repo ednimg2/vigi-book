@@ -30,14 +30,16 @@ Route::get('/', function () {
 // DELETE destroy/{id}  books/destroy/1
 
 Route::get('books', [BookController::class, 'index']);
-Route::get('books/{id}', [BookController::class, 'show'])->whereNumber('id');
+Route::any('books/edit/{id}', [BookController::class, 'edit'])->name('books.edit');
 Route::get('books/create', [BookController::class, 'create']);
 Route::post('books/store', [BookController::class, 'store']);
+Route::delete('books/delete/{id}', [BookController::class, 'delete'])->name('books.delete');
+Route::get('books/{id}', [BookController::class, 'show'])->whereNumber('id');
 
 Route::get('authors', [AuthorController::class, 'index']);
 Route::get('authors/create', [AuthorController::class, 'create']);
 Route::post('authors/create', [AuthorController::class, 'store']);
-Route::post('authors/edit/{id}', [AuthorController::class, 'edit'])->name('authors.edit');
+Route::any('authors/edit/{id}', [AuthorController::class, 'edit'])->name('authors.edit');
 Route::delete('authors/delete/{id}', [AuthorController::class, 'delete'])->name('authors.delete');
 Route::get('authors/{author}', [AuthorController::class, 'show']);
 

@@ -35,7 +35,8 @@ class CategoryController extends Controller
     }
 
     //atsakinga uz saugojima create formos
-    public function store(StoreCategoryRequest $request) {
+    public function store(StoreCategoryRequest $request): RedirectResponse
+    {
         //validacija
         $request->validated();
 

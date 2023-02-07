@@ -10,6 +10,11 @@ class Book extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'page_count'
+    ];
+
     //Sąryšis su categorija, per category_i
     public function category(): BelongsTo
     {

@@ -12,10 +12,13 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a href="{{ url('categories') }}" class="nav-link" aria-current="page" href="#">Categories</a>
+                        <a href="{{ url('categories') }}" class="nav-link" aria-current="page">Categories</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('authors') }}" class="nav-link" aria-current="page" href="#">Authors</a>
+                        <a href="{{ url('authors') }}" class="nav-link" aria-current="page">Authors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('books') }}" class="nav-link" aria-current="page">Books</a>
                     </li>
                 </ul>
             </div>

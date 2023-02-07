@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
@@ -10,9 +11,9 @@ use Illuminate\Support\Str;
 
 class BookController extends Controller
 {
-    public function index(Request $request): View
+    public function index(): View
     {
-        $books = Book::all();
+        $books = Book::paginate(10);
 
         /*$books = Book::cursor()->filter(function ($book) {
             return $book->id > 1010;
@@ -25,7 +26,7 @@ class BookController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function show($id): View
     {
         $book = Book::find($id);
 
@@ -33,8 +34,27 @@ class BookController extends Controller
             abort(404);
         }
 
-        dd($book->name);
+        return view('books/show', [
+            'book' => $book
+        ]);
+    }
 
-        echo 'Show'. $id;
+    public function create(): View
+    {
+        return view('books/create');
+    }
+
+    public function store(Request $request): RedirectResponse
+    {
+        $request->validate(
+            [
+                'name' => 'required|max:50',
+            ]
+        );
+
+        Book::create($request->all());
+
+        return redirect('books')
+            ->with('success', 'Book created successfully!');
     }
 }

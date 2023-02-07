@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Author;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 
@@ -23,7 +24,8 @@ class AuthorController extends Controller
     }
 
     //atsakinga uz saugojima create formos
-    public function store(Request $request) {
+    public function store(Request $request): RedirectResponse
+    {
 
         $request->validate(
             [
@@ -63,16 +65,16 @@ class AuthorController extends Controller
          */
 
         //1. Gaunam pagal id kokia kategorija isvalyt
-        $category = Author::find($id);
+        $author = Author::find($id);
 
         //2. Patikrinam ar tokia egzistuoja
-        if ($category === null) {
+        if ($author === null) {
             //3. jeigu neegzistuoja metam 404
             abort(404);
         }
 
         //4. jeigu egzistuoja isvalom
-        $category->delete();
+        $author->delete();
 
         //5. Po sėkmingo išvalymo redirectinam su sėkmės pranešimu.
         return redirect('authors')->with('success', 'Author was removed!');
