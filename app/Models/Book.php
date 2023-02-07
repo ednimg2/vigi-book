@@ -15,6 +15,11 @@ class Book extends Model
         'page_count'
     ];
 
+    public function author(): BelongsTo
+    {
+        return $this->belongsTo(Author::class);
+    }
+
     //Sąryšis su categorija, per category_i
     public function category(): BelongsTo
     {

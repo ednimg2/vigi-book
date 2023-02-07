@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\Book;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -41,7 +42,11 @@ class BookController extends Controller
 
     public function create(): View
     {
-        return view('books/create');
+        $authors = Author::all();
+
+        return view('books/create', [
+            'authors' => $authors
+        ]);
     }
 
     public function store(Request $request): RedirectResponse
