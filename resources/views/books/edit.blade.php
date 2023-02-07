@@ -18,7 +18,7 @@
             <select name="author_id" class="form-control @error('author_id') is-invalid @enderror">
                 <option value="">-</option>
                 @foreach($authors as $author)
-                    <option @if(old('author_id', isset($book->author->id) ?? null) == $author->id) selected @endif value="{{ $author->id }}">{{ $author->full_name }}</option>
+                    <option @if(old('author_id', isset($book->author->id) ? $book->author->id : null) == $author->id) selected @endif value="{{ $author->id }}">{{ $author->full_name }}</option>
                 @endforeach
             </select>
             @error('author_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -29,7 +29,7 @@
             <select name="category_id" class="form-control @error('category_id') is-invalid @enderror">
                 <option value="">-</option>
                 @foreach($categories as $category)
-                    <option @if(old('category_id', isset($book->category->id) ?? null) == $category->id) selected @endif value="{{ $category->id }}">{{ $category->name }}</option>
+                    <option @if(old('category_id', isset($book->category->id) ? $book->category->id : null) == $category->id) selected @endif value="{{ $category->id }}">{{ $category->name }}</option>
                 @endforeach
             </select>
             @error('category_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
