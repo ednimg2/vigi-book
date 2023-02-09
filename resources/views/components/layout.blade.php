@@ -20,18 +20,18 @@
                     <li class="nav-item">
                         <a href="{{ url('books') }}" class="nav-link" aria-current="page">Books</a>
                     </li>
-                    @if(auth()->user())
+                    @auth
                         <li class="nav-item">
                             <a href="{{ route('profile') }}" class="nav-link" aria-current="page">Jusu {{ auth()->user()->name }} profilis</a>
                         </li>
-                    @endif
+                    @endauth
                     <li class="nav-item">
-                        <!-- Reikia logikos kad jeigu prisijugęs rašytu logout, jeigu atsijunges rašytų login-->
-                        @if(auth()->user() === null)
-                            <a href="{{ route('login') }}" class="nav-link" aria-current="page">Login</a>
-                        @else
+                        @auth
                             <a href="{{ route('logout') }}" class="nav-link" aria-current="page">Logout</a>
-                        @endif
+                        @endauth
+                        @guest
+                            <a href="{{ route('login') }}" class="nav-link" aria-current="page">Login</a>
+                        @endguest
                     </li>
                 </ul>
             </div>

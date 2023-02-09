@@ -53,17 +53,15 @@ Route::get('categories/{id}', [CategoryController::class, 'show']);
 
 Route::get('products/create', [ProductController::class, 'create']);
 
-Route::get('login', [AuthController::class, 'show'])
-    ->middleware('guest')
-    ->name('login'); //renderina login formą
-Route::post('login', [AuthController::class, 'authenticate'])
-    ->middleware('guest')
-    ->name('authenticate'); //submitina formą
+Route::middleware(['guest'])->group(function () {
+    Route::get('login', [AuthController::class, 'show'])->name('login'); //renderina login formą
+    Route::post('login', [AuthController::class, 'authenticate'])->name('authenticate'); //submitina formą
+});
 
 Route::get('logout', [AuthController::class, 'logout'])
     ->name('logout')
     ->middleware('auth');
 
 Route::get('profile', [UserController::class, 'show'])
-    ->middleware(['auth'])
+    ->middleware(['auth', 'role'])
     ->name('profile');
