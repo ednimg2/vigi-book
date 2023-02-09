@@ -12,8 +12,12 @@ class Book extends Model
 
     protected $fillable = [
         'name',
-        'page_count'
+        'page_count',
+        'author_id',
+        'category_id'
     ];
+
+    protected $with = ['category', 'author'];
 
     public function author(): BelongsTo
     {

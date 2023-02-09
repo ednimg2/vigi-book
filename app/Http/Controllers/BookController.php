@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
@@ -43,9 +44,11 @@ class BookController extends Controller
     public function create(): View
     {
         $authors = Author::all();
+        $categories = Category::all();
 
         return view('books/create', [
-            'authors' => $authors
+            'authors' => $authors,
+            'categories' => $categories
         ]);
     }
 
@@ -53,7 +56,9 @@ class BookController extends Controller
     {
         $request->validate(
             [
-                'name' => 'required|max:50',
+                'name' => 'required|min:3|max:50',
+                'author_id' => 'required',
+                'category_id' => 'required'
             ]
         );
 
@@ -61,5 +66,40 @@ class BookController extends Controller
 
         return redirect('books')
             ->with('success', 'Book created successfully!');
+    }
+
+    public function edit(Request $request, int $id): View|RedirectResponse
+    {
+        $book = Book::find($id);
+
+        $authors = Author::all();
+        $categories = Category::all();
+
+        if ($book === null) {
+            abort(404);
+        }
+
+        if ($request->isMethod('post')) {
+            $request->validate(
+                [
+                    'name' => 'required|min:3|max:50',
+                    'author_id' => 'required',
+                    'category_id' => 'required'
+                ]
+            );
+
+            $book->fill($request->all());
+            $book->save();
+
+            return redirect('books')->with('success', 'Book updated!');
+        }
+
+        return view('books/edit', [
+            'book' => $book,
+            'authors' => $authors,
+            'categories' => $categories
+        ]);
+
+        //return view('books/edit', compact('book', 'authors', 'categories'));
     }
 }

@@ -31,7 +31,7 @@
                 </td>
                 <td>
                     @if ($book->author)
-                        {{ $book->author->name }}
+                        {{ $book->author->full_name }}
                     @endif
                 </td>
                 <td>
