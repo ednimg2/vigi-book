@@ -28,7 +28,7 @@
                 <td>
                     <a href="{{ url('authors', ['id' => $author->id]) }}">{{ $author->name }} {{ $author->surname }}</a>
                 </td>
-                <td>{{ $author->birthday }}</td>
+                <td>{{ $author->birthday->format('Y-m-d') }}</td>
                 <td>{{ $author->country }}</td>
                 <td>
                     <a href="{{ route('authors.edit', ['id' => $author->id]) }}" class="btn btn-info">Edit</a>
