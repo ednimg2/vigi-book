@@ -30,8 +30,10 @@
                     <a href="{{ url('books', ['id' => $book->id]) }}">{{ $book->name }}</a>
                 </td>
                 <td>
-                    @if ($book->author)
-                        {{ $book->author->full_name }}
+                    @if ($book->authors)
+                        @foreach($book->authors as $author)
+                            {{ $author->full_name }},
+                        @endforeach
                     @endif
                 </td>
                 <td>

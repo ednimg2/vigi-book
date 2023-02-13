@@ -31,6 +31,7 @@ Route::get('/', function () {
 // DELETE destroy/{id}  books/destroy/1
 
 Route::get('books', [BookController::class, 'index'])->middleware(['auth']);
+Route::get('books/books-without-author', [BookController::class, 'indexWithoutAuthors']);
 Route::any('books/edit/{id}', [BookController::class, 'edit'])->name('books.edit');
 Route::get('books/create', [BookController::class, 'create']);
 Route::post('books/store', [BookController::class, 'store']);

@@ -9,21 +9,26 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class BookController extends Controller
 {
     public function index(): View
     {
+        //$books = Book::with('category', 'authors')->paginate(10);
         $books = Book::paginate(10);
 
-        /*$books = Book::cursor()->filter(function ($book) {
-            return $book->id > 1010;
-        });*/
-
-        //$books = Book::lazy();
-
         return view('books/index', [
+            'books' => $books
+        ]);
+    }
+
+    public function indexWithoutAuthors(): View
+    {
+        $books = Book::without('authors')->get();
+
+        return view('books/index_without_author', [
             'books' => $books
         ]);
     }
@@ -44,7 +49,7 @@ class BookController extends Controller
     public function create(): View
     {
         $authors = Author::all();
-        $categories = Category::all();
+        $categories = Category::where('enabled', '=', 1)->get();
 
         return view('books/create', [
             'authors' => $authors,
@@ -52,17 +57,20 @@ class BookController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): RedirectResponse|View
     {
         $request->validate(
             [
                 'name' => 'required|min:3|max:50',
-                'author_id' => 'required',
+                //'author_id' => 'required',
                 'category_id' => 'required'
             ]
         );
 
-        Book::create($request->all());
+        $book = Book::create($request->all());
+        $authors = Author::find($request->post('author_id'));
+        $book->authors()->attach($authors);
+        //$book->authors()->attach($request->post('author_id')); // alternativa, jeigu su tai autoriais nieko nereikia daugiau daryti
 
         return redirect('books')
             ->with('success', 'Book created successfully!');
@@ -88,8 +96,11 @@ class BookController extends Controller
                 ]
             );
 
-            $book->fill($request->all());
-            $book->save();
+            $book->update($request->all());
+
+            $book->authors()->detach();
+            $authors = Author::find($request->post('author_id'));
+            $book->authors()->attach($authors);
 
             return redirect('books')->with('success', 'Book updated!');
         }

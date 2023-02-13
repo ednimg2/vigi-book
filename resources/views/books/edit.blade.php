@@ -15,10 +15,9 @@
 
         <div class="col-12">
             <label class="form-label">Author:</label>
-            <select name="author_id" class="form-control @error('author_id') is-invalid @enderror">
-                <option value="">-</option>
+            <select name="author_id[]" class="form-control @error('author_id') is-invalid @enderror" multiple>
                 @foreach($authors as $author)
-                    <option @if(old('author_id', isset($book->author->id) ? $book->author->id : null) == $author->id) selected @endif value="{{ $author->id }}">{{ $author->full_name }}</option>
+                    <option @if($book->authors->contains($author->id)) selected @endif value="{{ $author->id }}">{{ $author->full_name }}</option>
                 @endforeach
             </select>
             @error('author_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
