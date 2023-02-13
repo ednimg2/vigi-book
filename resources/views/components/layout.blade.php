@@ -20,6 +20,19 @@
                     <li class="nav-item">
                         <a href="{{ url('books') }}" class="nav-link" aria-current="page">Books</a>
                     </li>
+                    @auth
+                        <li class="nav-item">
+                            <a href="{{ route('profile') }}" class="nav-link" aria-current="page">Jusu {{ auth()->user()->name }} profilis</a>
+                        </li>
+                    @endauth
+                    <li class="nav-item">
+                        @auth
+                            <a href="{{ route('logout') }}" class="nav-link" aria-current="page">Logout</a>
+                        @endauth
+                        @guest
+                            <a href="{{ route('login') }}" class="nav-link" aria-current="page">Login</a>
+                        @endguest
+                    </li>
                 </ul>
             </div>
         </div>
