@@ -27,6 +27,16 @@
     </div>
 
     <div class="col-12">
+        <label class="form-label">Parent category:</label>
+        <select name="category_id" class="form-control">
+            <option value="">--</option>
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->name }}</option>
+            @endforeach
+        </select>
+    </div>
+
+    <div class="col-12">
         <input type="checkbox" name="enabled" class="form-check-input" value="1" @if (old('enabled')) checked @endif>
         <label class="form-check-label">Enabled?</label>
     </div>

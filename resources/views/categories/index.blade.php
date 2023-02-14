@@ -17,6 +17,7 @@
         <tr>
             <th scope="col" width="100">ID</th>
             <th scope="col">Name</th>
+            <th scope="col">Parent</th>
             <th scope="col">Is Enabled</th>
             <th scope="col" width="100">Edit</th>
             <th scope="col" width="100">Delete</th>
@@ -26,6 +27,11 @@
             <th scope="row">{{ $category->id }}</th>
             <td>
                 <a href="{{ url('categories', ['id' => $category->id]) }}">{{ $category->name }}</a>
+            </td>
+            <td>
+                @if($category->parentCategory)
+                    {{ $category->parentCategory->name }}
+                @endif
             </td>
             <td>{{ $category->enabled }}</td>
             <td>

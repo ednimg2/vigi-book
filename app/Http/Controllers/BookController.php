@@ -49,7 +49,9 @@ class BookController extends Controller
     public function create(): View
     {
         $authors = Author::all();
-        $categories = Category::where('enabled', '=', 1)->get();
+        $categories = Category::where('enabled', '=', 1)
+            ->whereNull('category_id')
+            ->with('childrenCategories')->get();
 
         return view('books/create', [
             'authors' => $authors,
@@ -62,7 +64,7 @@ class BookController extends Controller
         $request->validate(
             [
                 'name' => 'required|min:3|max:50',
-                //'author_id' => 'required',
+                'author_id' => 'required',
                 'category_id' => 'required'
             ]
         );
@@ -70,7 +72,7 @@ class BookController extends Controller
         $book = Book::create($request->all());
         $authors = Author::find($request->post('author_id'));
         $book->authors()->attach($authors);
-        //$book->authors()->attach($request->post('author_id')); // alternativa, jeigu su tai autoriais nieko nereikia daugiau daryti
+        //$book->authors()->attach($request->post('author_id')); // alternativa, jeigu su tais autoriais nieko nereikia daugiau daryti
 
         return redirect('books')
             ->with('success', 'Book created successfully!');
@@ -81,7 +83,9 @@ class BookController extends Controller
         $book = Book::find($id);
 
         $authors = Author::all();
-        $categories = Category::all();
+        $categories = Category::where('enabled', '=', 1)
+            ->whereNull('category_id')
+            ->with('childrenCategories')->get();
 
         if ($book === null) {
             abort(404);

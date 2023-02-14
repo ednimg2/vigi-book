@@ -18,10 +18,10 @@ class Book extends Model
         'category_id'
     ];
 
-    protected $with = [
+    /*protected $with = [
         'category',
         'authors'
-    ];
+    ];*/
 
     public function authors(): BelongsToMany
     {

@@ -3,10 +3,12 @@
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Public\HomeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Public\BookController as PublicBookController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,9 +20,12 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+
+Route::get('/', [HomeController::class, 'index']);
+Route::get('book/show/{id}', [PublicBookController::class, 'show']);
 
 // GET index            books/index
 // GET show/{id}        books/show/1

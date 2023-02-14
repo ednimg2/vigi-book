@@ -25,6 +25,15 @@
             @enderror
         </div>
         <div class="col-12">
+            <label class="form-label">Parent category:</label>
+            <select name="category_id" class="form-control">
+                <option value="">--</option>
+                @foreach($categories as $cat)
+                    <option value="{{ $cat->id }}" @if($cat->id === $category->category_id) selected @endif>{{ $cat->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-12">
             <input type="checkbox" name="enabled" value="1" class="form-check-input" @if ($category->enabled) checked @endif>
             <label class="form-check-label">Enabled?</label>
         </div>

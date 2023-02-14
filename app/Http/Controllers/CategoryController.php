@@ -50,7 +50,12 @@ class CategoryController extends Controller
     //atsakinga uz atvaizdavima create formos
     public function create(): View|RedirectResponse
     {
-        return view('categories/create');
+        // SELECT * FROM categories WHERE category_id IS NULL
+        $categories = Category::where('category_id', null)->get();
+
+        return view('categories/create', [
+            'categories' => $categories
+        ]);
     }
 
     public function edit(Request $request, int $id): View|RedirectResponse
@@ -82,7 +87,7 @@ class CategoryController extends Controller
         if ($request->isMethod('post')) {
 
             $request->validate(
-                ['name' => 'required|min:3|max:12']
+                ['name' => 'required|min:3|max:20']
             );
 
             //2.2. užsetinam category propercius
@@ -99,9 +104,11 @@ class CategoryController extends Controller
             return redirect('categories')->with('success', 'Category updated!');
         }
 
+        $categories = Category::where('category_id', null)->get();
         //1.3. Pagrąžinti kategoriją į template
         return view('categories/edit', [
-            'category' => $category
+            'category' => $category,
+            'categories' => $categories
         ]);
     }
 
