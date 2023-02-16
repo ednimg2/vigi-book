@@ -9,6 +9,41 @@
 
     <div class="row">
         <div class="col">
+            <form action="{{ url('books') }}" method="get">
+
+                <div class="col-12">
+                    <label class="form-label">Book name:</label>
+                    <input type="text" name="name" value="{{ $name }}" class="form-control" placeholder="Book name">
+                </div>
+
+
+                <div class="col-12">
+                    <label class="form-label">Category:</label>
+                    <select name="category_id" class="form-control">
+                        <option></option>
+                        @foreach($categories as $category)
+                            <option
+                                @if($category->id == $category_id) selected @endif
+                            value="{{ $category->id }}">{{ $category->name }}</option>
+                            @foreach($category->childrenCategories as $childrenCategory)
+                                <option
+                                    @if($childrenCategory->id == $category_id) selected @endif
+                                    value="{{ $childrenCategory->id }}">--- {{ $childrenCategory->name }}</option>
+                            @endforeach
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-12 mt-2">
+                    <button type="submit" class="btn btn-info">Filter</button>
+                    <a href="{{ url('books') }}">clear</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
             <a href="{{ url('books/create') }}" class="btn btn-primary">Create</a>
         </div>
     </div>
@@ -17,6 +52,7 @@
         <tr>
             <th scope="col" width="100">ID</th>
             <th scope="col">Name</th>
+            <th>Image</th>
             <th scope="col">Author</th>
             <th scope="col">Category</th>
             <th scope="col">Page count</th>
@@ -28,6 +64,13 @@
                 <th scope="row">{{ $book->id }}</th>
                 <td>
                     <a href="{{ url('books', ['id' => $book->id]) }}">{{ $book->name }}</a>
+                </td>
+                <td>
+                    @if ($book->image)
+                        <img src="{{ asset($book->image) }}">
+                    @else
+                        No image
+                    @endif
                 </td>
                 <td>
                     @if ($book->authors)
